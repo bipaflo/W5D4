@@ -1,0 +1,11 @@
+  <h1 class="pt_5">Commente ce Gossip !</h1>
+  <%= form_for [@author, @gossip, @comment ] do |f| %>
+    <div class="form-group">
+      <label>Commentaire :</label>
+        <%= f.text_area :content, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-light text-dark"><i class="fas fa-plus"></i></button>
+    </div>
+  <% end %>
+

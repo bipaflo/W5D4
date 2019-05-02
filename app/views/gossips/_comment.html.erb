@@ -1,0 +1,14 @@
+<div class="card w-75 bg-dark mb-2 border-secondary text-light">
+  <div class="card-body">
+  <h4 class="card-title"><%= comment.author %> <small class="text-muted">a posté</small></h4>
+  <hr class="border-white">
+  <p class="card-text"><%= comment.content %></p>
+  <p><i>Posted <%= distance_of_time_in_words(comment.gossip.created_at, comment.created_at) %> later</i></p>
+  <% if session[:user_id] == comment.user_id %>
+  <%= link_to([comment.gossip, comment],
+        method: :delete, data: { confirm: 'Êtes-vous sûr?' }) do %>
+  <i class="fas fa-trash-alt"></i>
+  <% end %>
+  <% end %>
+  </div>
+</div>

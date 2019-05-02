@@ -1,0 +1,18 @@
+<div class="card text-center text-white bg-dark mb-3 mx-auto mt-5" style="width: 600px;">
+    <div class="card-header "><%= @user.full_name %></div>
+      <div class="card-body">
+    <h4 class="card-title"><%= @user.description %></h5>
+    <p><i><%= @user.age %> ans</i><br/>
+          <%= @user.email %>
+    </p>
+    <div class="row">
+    <div class="col-md-6">
+    <a class="btn btn-light text-dark" href="https://www.beinsports.com/france/nba/">Contacter</a>
+    </div>
+    <div class="col-md-6">
+    <a class="btn btn-secondary text-light" <%= link_to "Retour à l'accueil", root_path %></a>
+    </div>
+
+    </div>
+  </div>
+</div>

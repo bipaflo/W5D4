@@ -1,0 +1,26 @@
+<div class="container pt-5 mb-4">
+  <h1>Les Potins par Villes !</h1>
+  <p>Voici la liste des utilisateurs</p>
+  <div class="row pt-4 pb-4">
+    <table class="table">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Ville</th>
+          <th scope="col">Code Postale</th>
+          <th scope="col">Voir les potins de cette ville</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cities.each do |city| %>
+          <tr>
+            <th scope="row"><%= city.id %></th>
+            <td><%= city.name %></td>
+            <td><%= city.zip_code %></td>
+            <td><a href="<%= city_path(city.id) %>">Les potins</a></td> 
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

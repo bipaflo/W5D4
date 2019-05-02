@@ -1,0 +1,61 @@
+<div class="card text-center text-white bg-dark mb-3 mx-auto mt-3" style="width: 400px;">
+    <div class="card-header ">
+    <%= 
+      @user.find(@gossip.user_id).full_name 
+      %> 
+    de 
+    <%=
+      @city.find(@user.find(@gossip.user_id).city_id).name
+      %> </div>
+      <div class="card-body">
+    <h5 class="card-title"><%= @gossip.title %></h5>
+    <p><i><%= @gossip.content %></i></p>
+
+    <% if session[:user_id] %>
+            <td><% pre_like = @gossip.likes.find { |like| like.user_id == current_user.id} %>
+                <% if pre_like %>
+                  <%= link_to(gossip_like_path(@gossip.id, pre_like), method: :delete) do %>
+                      <i class="fas fa-heart-broken center"></i>
+                  <% end %>
+                <% else %>
+                  <%= link_to(gossip_likes_path(@gossip.id), method: :post ) do %>
+                      <i class="fas fa-heart"></i>
+                  <% end %>
+                <% end %></td>
+            <% end %>
+    <%= @gossip.likes.count %> <%= (@gossip.likes.count) == 1 ? 'like' : 'likes'%></p>
+
+    <a href="/user/<%= @user.find(@gossip.user_id).id%>" class="btn btn-light"><i class="far fa-address-card"></i></a>
+    <% if session[:user_id] == @gossip.user_id %>
+    <a href="<%= edit_gossip_path(@gossip.id)%>" class="btn btn-light"><i class="far fa-edit"></i></a>
+    <a class="btn btn-danger" data-confirm="Voulez-vous vraiment supprimer ce potin?" data-method="DELETE"><i class="fas fa-trash-alt"></i></a> 
+    <% end %>
+  </div>
+</div>
+
+
+<div class="card bg-dark text-light">
+<h5 class="card-header">Commentaires</h5>
+  <div class="card-body">
+
+    <div class="container mt-5 mb-5">
+      <div class="row">
+        <div class="col-md-6">
+        <% if session[:user_id] %>
+        <%= render partial: 'comments/form' %>
+        <% end %>
+        <% if session[:user_id].nil? %>
+        <h5>Vous devez créer un compte / vous identifier pour commenter </h5>
+        <a class="btn btn-light text-dark" href="<%= new_user_path %>">Créer un compte </a>
+        <a class="btn btn-light text-dark" href="<%= new_session_path %>">Log In</a>
+        <% end %>
+        </div>
+
+        <div class="col-md-6">
+        <h1 class="pt_5">Commentaires</h1>
+        <%= render partial: 'gossips/comment', collection: @gossip.comments.reverse %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

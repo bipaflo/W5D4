@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gossip Project</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= favicon_link_tag asset_path('favicon-32x32.png') %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" <%= link_to "The Gossip Project", root_path %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="<%= root_path %>">
+        <i class="fas fa-home"></i></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"<%= link_to "L'équipe", team_path %>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"<%= link_to "Users", user_index_path %>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"<%= link_to "Villes", cities_path %>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"<%= link_to "Contact", contact_path %>
+      </li>
+    </ul>
+    <% if session[:user_id] %>
+    <span class="nav-item">
+      <a class="nav-link text-light" <%= link_to "Créer un Gossip", new_gossip_path %>
+    </span>
+    <% end %>
+    <% if session[:user_id].nil? %>
+    <span class="nav-item">
+      <a class="nav-link text-light" <%= link_to "Sign Up", new_user_path %>
+    </span>
+    <span class="nav-item">
+      <a class="nav-link text-light" <%= link_to "Log In", new_session_path %>
+    </span>
+    <% end %>
+    <% if session[:user_id] %>
+    <span class="nav-item">
+      <a class="nav-link text-light" <%= link_to "Log Out", session_path(session[:user_id]), method: :delete %>
+    </span>
+    <% end %>
+
+  </div>
+</nav>
+    <% flash.each do |name, msg| %>
+      <div class="alert alert-<%= name %> text-center">
+        <%= msg %>
+      </div>
+    <% end %>
+    <%= yield %>
+  
+
+
+  </body>
+</html>
